@@ -2,7 +2,7 @@
 // delegação dos eventos;
 // passar os dados para um lado e para o outro;
 import { ComponentBuilder } from './components.js';
-import { constants } from './constants';
+import { constants } from './constants.js';
 
 export class TerminalController {
   #usersColors = new Map();
@@ -57,11 +57,34 @@ export class TerminalController {
     }
   }
 
+  #onStatusChanged({ screen, status }) {
+    return (users) => {
+      // aqui estamos pegando o primeiro item da lista.
+      // no caso e o {bold}Users on Room{/}
+      const { content } = status.items.shift();
+
+      // remove todos os items
+      status.clearItems();
+
+      // adicionando o primeiro item.
+      status.addItem(content);
+
+      users.forEach(username => {
+        const color = this.#getUserColor(username);
+
+        status.addItem(`{${color}}{bold}${String(username)}{/}`);
+      });
+
+      screen.render();
+    }
+  }
+
   #registerEvents(eventEmitter, components) {
     const { events } = constants;
 
     eventEmitter.on(events.app.MESSAGE_RECEIVED, this.#onMessageReceived(components));
     eventEmitter.on(events.app.ACTIVITYLOG_UPDATED, this.#onLogChanged(components));
+    eventEmitter.on(events.app.STATUS_UPDATED, this.#onStatusChanged(components));
   }
 
   async initializeTable(eventEmitter) {
@@ -79,12 +102,19 @@ export class TerminalController {
     components.input.focus();
     components.screen.render(); // rendelizar a tela;
 
-    setInterval(() => {
-      eventEmitter.emit('activityLog:updated', 'alexandredev3 join');
-      eventEmitter.emit('activityLog:updated', 'dienifer join');
-      eventEmitter.emit('activityLog:updated', 'maria left');
-      eventEmitter.emit('activityLog:updated', 'sara join');
-      eventEmitter.emit('activityLog:updated', 'mateus left');
-    }, 2000)
+    // setInterval(() => {
+      const { events } = constants;
+
+      const users = ['alexandredev3'];
+
+      eventEmitter.emit(events.app.STATUS_UPDATED, users);
+      users.push('sara');
+      eventEmitter.emit(events.app.STATUS_UPDATED, users);
+      users.push('maria', 'dienifer');
+      eventEmitter.emit(events.app.STATUS_UPDATED, users);
+      eventEmitter.emit(events.app.STATUS_UPDATED, users);
+      users.push('mateus');
+      eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    // }, 2000)
   }
 }

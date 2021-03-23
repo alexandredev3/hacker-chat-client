@@ -5,6 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "user01": "node index.js --username alexandredev3 --room sala01 --hostUri localhost",
+    "user02": "node index.js --username sara --room sala01 --hostUri https://localhost:9898",
+    "user03": "node index.js --username mateus --room sala01 --hostUri localhost",
     "start": "node index.js"
   },
   "dependencies": {

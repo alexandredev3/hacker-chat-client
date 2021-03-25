@@ -104,19 +104,19 @@ export class TerminalController {
     components.input.focus();
     components.screen.render(); // rendelizar a tela;
 
-    // setInterval(() => {
-      const { events } = constants;
+    // // setInterval(() => {
+    //   const { events } = constants;
 
-      const users = ['alexandredev3'];
+    //   const users = ['alexandredev3'];
 
-      eventEmitter.emit(events.app.STATUS_UPDATED, users);
-      users.push('sara');
-      eventEmitter.emit(events.app.STATUS_UPDATED, users);
-      users.push('maria', 'dienifer');
-      eventEmitter.emit(events.app.STATUS_UPDATED, users);
-      eventEmitter.emit(events.app.STATUS_UPDATED, users);
-      users.push('mateus');
-      eventEmitter.emit(events.app.STATUS_UPDATED, users);
-    // }, 2000)
+    //   eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    //   users.push('sara');
+    //   eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    //   users.push('maria', 'dienifer');
+    //   eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    //   eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    //   users.push('mateus');
+    //   eventEmitter.emit(events.app.STATUS_UPDATED, users);
+    // // }, 2000)
   }
 }

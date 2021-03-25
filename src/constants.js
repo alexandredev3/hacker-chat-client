@@ -8,7 +8,8 @@ export const constants = {
     },
 
     socket: { // tudo que for do socket
-
+      JOIN_ROOM: 'joinRoom', // tem que ser o mesmo nom que colocamos na função la no server
+      MESSAGE: 'message'
     }
   }
 }

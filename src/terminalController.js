@@ -30,7 +30,9 @@ export class TerminalController {
     return function() {
       // o this que estamos usando aqui e o this do components;
       const message = this.getValue();
-      console.log("message: >>", message);
+
+      // emitindo o evento de mensagem, para o eventManager pegar.
+      eventEmitter.emit(constants.events.app.MESSAGE_SENT, message); 
       this.clearValue();
     }
   }

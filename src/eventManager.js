@@ -26,6 +26,24 @@ export class EventManager {
     this.#updateUsersComponent();
   }
 
+  disconnectUser(user) {
+    const { id } = user;
+
+    const username = this.#allUser.get(id);
+
+    this.#allUser.delete(id);
+
+    this.#updateActivityLogComponent(`${username} left!`);
+    this.#updateUsersComponent();
+  }
+
+  message(message) {
+    this.componentEmitter.emit(
+      constants.events.app.MESSAGE_RECEIVED,
+      message
+    );
+  }
+
   newUserConnected(message) {
     const user = message;
     this.#allUser.set(user.id, user.username);
@@ -44,7 +62,7 @@ export class EventManager {
     this.componentEmitter.emit(
       constants.events.app.ACTIVITYLOG_UPDATED,
       message
-    )
+    );
   }
 
   #updateUsersComponent() {

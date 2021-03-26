@@ -39,10 +39,10 @@ export class TerminalController {
 
   #onMessageReceived({ screen, chat }) {
     return (msg) => {
-      const { username, content } = msg;
+      const { username, message } = msg;
       const color = this.#getUserColor(username);
 
-      chat.addItem(`{${color}}{bold}${username}{/}: ${content}`);
+      chat.addItem(`{${color}}{bold}${username}{/}: ${message}`);
       screen.render(); // todas vez que alterar a tela, precisamos chamar o metodo render.
     }
   }
